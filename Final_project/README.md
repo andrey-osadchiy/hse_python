@@ -53,3 +53,23 @@
    git clone https://github.com/yourusername/yourproject.git
    cd final_project
 
+3.Запустите Docker Compose:
+  ```bash
+   docker-compose up -d
+4.Заполните базу данных PostgreSQL фейковыми данными:
+```python
+python postgre_db.py
+5.Инициализируйте базу данных Apache Airflow:
+```bash
+docker-compose exec webserver airflow db init
+
+![Apache Airflow Screenshot](final_project/screenshots/airflow db init.png)
+
+6. Создайте пользователя в интерфейсе Airflow (если еще не создан).
+
+![Apache Airflow Screenshot](final_project/screenshots/set_login_password.png)
+
+7. Добавьте свой DAG в Airflow и проверьте его в веб-интерфейсе на порту 9090.
+8. Запустите DAG через веб-интерфейс.
+
+
