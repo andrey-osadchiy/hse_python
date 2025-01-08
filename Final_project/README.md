@@ -45,6 +45,54 @@
 - База данных `shop` работает на порту 5433 вместо стандартного 5432.
 - В качестве базы метаданных для Apache Airflow используется PostgreSQL вместо SQLite, поскольку SQLite вызывал слишком много ошибок при запуске. Возможно, можно использовать SQLite, но на данный момент настройка с PostgreSQL работает стабильно.
 
+# Структура базы данных PostgreSQL
+
+В проекте используется база данных PostgreSQL, которая содержит несколько таблиц для хранения данных. Вот описание всех таблиц и их полей.
+
+## Таблицы базы данных
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,        -- Идентификатор пользователя (автоинкремент)
+    first_name VARCHAR(100),      -- Имя пользователя
+    last_name VARCHAR(100),       -- Фамилия пользователя
+    email VARCHAR(100) UNIQUE,    -- Электронная почта (уникальное поле)
+    registration_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Дата регистрации пользователя
+    loyalty_status VARCHAR(20)    -- Статус лояльности
+);
+CREATE TABLE Products (
+    product_id SERIAL PRIMARY KEY, -- Идентификатор продукта (автоинкремент)
+    name VARCHAR(100),             -- Наименование продукта
+    description TEXT,              -- Описание продукта
+    category_id INTEGER,           -- Ссылка на таблицу с категориями продукта
+    price DECIMAL(10, 2),          -- Цена
+    stock_quantity INTEGER,        -- Количество
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Дата создания
+);
+ 
+CREATE TABLE Orders (
+    order_id SERIAL PRIMARY KEY,    -- Идентификатор заказа (автоинкремент)
+    user_id INTEGER REFERENCES Users(user_id), -- Ссылка на таблицу с пользователями
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Дата заказа
+    total_amount DECIMAL(10, 2),    -- Общее количество
+    status VARCHAR(20),             -- Статус заказа
+    delivery_date TIMESTAMP         -- Дата доставки   
+);
+ 
+CREATE TABLE OrderDetails (
+    order_detail_id SERIAL PRIMARY KEY, -- Идентификатор деталей заказа (автоинкремент)
+    order_id INTEGER REFERENCES Orders(order_id), -- ссылка на таблицу заказов
+    product_id INTEGER REFERENCES Products(product_id), -- ссылка на таблицу продуктов
+    quantity INTEGER,               -- количество
+    price_per_unit DECIMAL(10, 2),  -- цена на 1 товар
+    total_price DECIMAL(10, 2)      -- общая цена
+);
+ 
+CREATE TABLE ProductCategories (
+    category_id SERIAL PRIMARY KEY, -- Идентификатор категории продуктов (автоинкремент)
+    name VARCHAR(50),               -- Наименование категории
+    parent_category_id INTEGER      -- Идентификатор родительской категории
+);
+```
 ## Как запустить проект
 
 1. Убедитесь, что Docker и Docker Compose установлены.
