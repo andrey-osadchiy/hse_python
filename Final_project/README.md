@@ -50,8 +50,8 @@
 1. Убедитесь, что Docker и Docker Compose установлены.
 2. Склонируйте репозиторий:
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
-   cd final_project
+   git clone https://github.com/andrey-osadchiy/hse_python.git
+   cd hse_python/Final_project
 
 3.Запустите Docker Compose:
   ```bash
@@ -65,13 +65,16 @@ python postgre_db.py
 ```bash
 docker-compose exec webserver airflow db init
 ```
-![Apache Airflow Screenshot](screenshots/airflow_db _init.png)
+![Apache Airflow Screenshot](screenshots/airflow_db_init.png)
 
 6. Создайте пользователя в интерфейсе Airflow (если еще не создан).
 
 ![Apache Airflow Screenshot](screenshots/set_login_password.png)
 
 7. Добавьте свой DAG в Airflow и проверьте его в веб-интерфейсе на порту 9090.
-8. Запустите DAG через веб-интерфейс.
+
+![Apache Airflow Screenshot](screenshots/apache_airflow.png)
+
+9. Запустите DAG через веб-интерфейс.
 
 
