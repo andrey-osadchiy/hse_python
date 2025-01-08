@@ -105,7 +105,7 @@ CREATE TABLE ProductCategories (
   ```bash
    docker-compose up -d
 ```
-4.Заполните базу данных PostgreSQL фейковыми данными:
+4.Создайте таблицы в shop. Заполните базу данных PostgreSQL фейковыми данными:
 ```python
 python postgre_db.py
 ```
