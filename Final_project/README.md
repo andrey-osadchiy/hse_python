@@ -109,17 +109,27 @@ CREATE TABLE ProductCategories (
 ```python
 python postgre_db.py
 ```
-5.Инициализируйте базу данных Apache Airflow:
+5. Создайте таблицу в Mysql в базе shop
+```sql
+CREATE TABLE category_summary (
+  category_name VARCHAR(255),
+  cnt_u_id INT,
+  all_quantity INT,
+  total_price DECIMAL(10, 2),
+  PRIMARY KEY (category_name)
+);
+```
+6.Инициализируйте базу данных Apache Airflow:
 ```bash
 docker-compose exec webserver airflow db init
 ```
 ![Apache Airflow Screenshot](screenshots/airflow_db_init.png)
 
-6. Создайте пользователя в интерфейсе Airflow (если еще не создан).
+7. Создайте пользователя в интерфейсе Airflow (если еще не создан).
 
 ![Apache Airflow Screenshot](screenshots/set_login_password.png)
 
-7. Добавьте свой DAG в Airflow и проверьте его в веб-интерфейсе на порту 9090.
+8. Добавьте свой DAG в Airflow и проверьте его в веб-интерфейсе на порту 9090.
 
 ![Apache Airflow Screenshot](screenshots/apache_airflow.png)
 
